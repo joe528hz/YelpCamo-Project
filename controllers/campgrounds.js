@@ -10,19 +10,19 @@ module.exports.index = async (req, res) => {
     res.render('campgrounds/index.ejs', { campgrounds });
 }
 
-//For Creating Route Controller
+//For Creating New Campground Route Controller
 module.exports.renderNewForm = (req, res) => {
     res.render('campgrounds/new.ejs');
 }
 module.exports.createCampground = async (req, res) => {
     const geoData = await geocoder.forwardGeocode({
-        query: req.body.campground.location,
-        limit: 1
+        query: req.body.campground.location, // query location which is from req.body or form
+        limit: 1 // the limit we want back
     }).send()
     // if (!req.body.campground) throw new ExpressError('Invalid Campground Data', 404)
     const campground = new Campground(req.body.campground);
     campground.geometry = geoData.body.features[0].geometry;
-    campground.image = req.files.map(f => ({ url: f.path, filename: f.filename }))//return an object of path and filename
+    campground.image = req.files.map(f => ({ url: f.path, filename: f.filename }))//return an object of path and filename for images
     campground.author = req.user._id;//.user is from passport associating author ID to the created campground
     await campground.save();
     console.log(campground);
@@ -64,7 +64,7 @@ module.exports.editCampground = async (req, res) => {
     const imgs = req.files.map(f => ({ url: f.path, filename: f.filename }))
     campground.image.push(...imgs);
     await campground.save();
-    if (req.body.deleteImages) {
+    if (req.body.deleteImages) { // deleting images in Backend
         for (let filename of req.body.deleteImages) {
             await cloudinary.uploader.destroy(filename)
         }

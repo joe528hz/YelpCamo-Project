@@ -70,7 +70,7 @@ const sessionConfig = {
     cookie: {
         httpOnly: true,
         // secure: true,
-        expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+        expires: Date.now() + 1000 * 60 * 60 * 24 * 7, //expires after a week
         maxAge: 1000 * 60 * 60 * 24 * 7
     }
 }
@@ -137,10 +137,10 @@ passport.deserializeUser(User.deserializeUser())//basically how to remove a user
 
 //FOR FLASH SESSION MIDDLEWARE
 app.use((req, res, next) => {
-    if (!['/login', '/', '/register'].includes(req.originalUrl)) {
-        req.session.returnTo = req.originalUrl;
+    if (!['/login', '/', '/register'].includes(req.originalUrl)) { //to see the full path of the routes
+        req.session.returnTo = req.originalUrl; //creating an object in session named returnTo and store the full path in every session
     }
-    res.locals.currentUser = req.user;
+    res.locals.currentUser = req.user; // from passport helper method
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
     next();

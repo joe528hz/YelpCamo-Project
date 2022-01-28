@@ -6,7 +6,7 @@ const { campgroundSchema, reviewSchema } = require('./schemas.js')
 
 //FOR IS USER LOGGED IN VALIDATION MIDDLEWARE
 module.exports.isLoggedIn = (req, res, next) => {
-    if (!req.isAuthenticated()) {
+    if (!req.isAuthenticated()) { //from passport helper method, automatically added in request object
         req.flash('error', 'You must be logged in first!');
         return res.redirect('/login');
     }

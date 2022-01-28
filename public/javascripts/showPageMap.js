@@ -9,7 +9,7 @@ const map = new mapboxgl.Map({
 
 map.addControl(new mapboxgl.NavigationControl())//control for navigation
 
-const marker1 = new mapboxgl.Marker()
+const marker1 = new mapboxgl.Marker() // for marker in the map in show template
     .setLngLat(campground.geometry.coordinates)
     .setPopup(
         new mapboxgl.Popup({ offset: 25 })

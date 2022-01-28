@@ -2,12 +2,13 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const Review = require('./review');
 
+//for image Schema 
 const ImageSchema = new Schema({
     url: String,
     filename: String
 })
 
-//for image virtuals
+//for image virtuals, smaller images in edit form 
 ImageSchema.virtual('thumbnail').get(function () {
     return this.url.replace('/upload', '/upload/w_200');
 })
