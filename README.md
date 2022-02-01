@@ -1,8 +1,7 @@
 # YelpCamp Project
 YelpCamp is the final porject of the online course I've been studying.
 
-##Project Description
-
+## Project Description
 -Yelpcamp is a website where a user can create a campround and recommend it to other
 -Users can make reviews to every campground listed.
 -Technologies Used
