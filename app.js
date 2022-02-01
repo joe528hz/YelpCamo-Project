@@ -38,14 +38,14 @@ db.once("open", () => {
 
 const app = express();
 
-app.engine('ejs', ejsMate);
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
+app.engine('ejs', ejsMate); //for defining a boilerplate
+app.set('view engine', 'ejs'); // for templating
+app.set('views', path.join(__dirname, 'views')); //for global directory flow
 
-app.use(express.urlencoded({ extended: true }));
-app.use(methodOverride('_method'));
+app.use(express.urlencoded({ extended: true }));// for body parser
+app.use(methodOverride('_method')); // for overiding the method in forms
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(mongoSanitize());//sanitizing to remove data using the defaults
+app.use(mongoSanitize());//sanitizing to remove data using the defaults operators of mongo
 
 //creating store for sessions
 const secret = process.env.SECRET || 'theseshouldbeabettersecret'
@@ -74,8 +74,9 @@ const sessionConfig = {
         maxAge: 1000 * 60 * 60 * 24 * 7
     }
 }
-app.use(session(sessionConfig))
-app.use(flash());
+app.use(session(sessionConfig)) //for sessions (statefulness of the web app)
+app.use(flash()); //for flash messages
+
 // app.use(helmet({ contentSecurityPolicy: false }));
 const scriptSrcUrls = [
     "https://stackpath.bootstrapcdn.com/",
@@ -127,10 +128,10 @@ app.use(
     })
 );
 
-
+//for authentication and authorization (refer to passport docs)
 app.use(passport.initialize());
-app.use(passport.session());
-passport.use(new LocalStrategy(User.authenticate()));
+app.use(passport.session());// for persistent login sessions (make sure to put these after session middleware)
+passport.use(new LocalStrategy(User.authenticate())); //authenticating the user model (refer to passport-local-mongoose docs)
 passport.serializeUser(User.serializeUser());//basically how to store a user in a session
 passport.deserializeUser(User.deserializeUser())//basically how to remove a user from a session
 
