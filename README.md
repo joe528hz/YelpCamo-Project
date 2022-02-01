@@ -13,7 +13,8 @@ YelpCamp is the final porject of the online course I've been studying.
   - MongoDB
   - Bootsrap
 - Other npm Packages being used
-  - mapbox > for map
+  - mapbox 
+  > for map
   - cloudinary > for storing images
   - connect-flash > for flash messages
   - connect-mongp > for creating storage for session/cookies
